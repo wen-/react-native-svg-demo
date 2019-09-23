@@ -6,16 +6,10 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native';
-import Svg, {
-    G,
-    Path,
-    Rect,
-    Circle,
-} from 'react-native-svg';
 import { connect } from 'tools/dva';
 import Actions from '../actions/test';
 
-import {Test as TestComponent, AnimateCircle as AnimateCircleComponent} from 'public-component';
+import {Test as TestComponent, AnimateCircle as AnimateCircleComponent, AnimateNum} from 'public-component';
 import Loading from 'components/base/loading';
 
 import Toast from 'components/base/toast';
@@ -42,6 +36,7 @@ class Test extends React.Component{
                 <Text style={styles.textColorRed}>TEST2: {this.props.testData.name}</Text>
                 <Loading />
                 <TestComponent />
+                <AnimateNum />
 
                 <AnimateCircleComponent progress={80} />
 
