@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 // import Spinner from 'react-native-spinkit';
 import Loading from './loading';
 ViewToast = null;
+dismissHandler = null;
 
 export default class ToastView extends Component {
 
@@ -32,7 +33,6 @@ export default class ToastView extends Component {
   };
 
   opacityAnim = new Animated.Value(0);
-  dismissHandler = null;
 
   constructor(props) {
     super(props);
@@ -46,6 +46,23 @@ export default class ToastView extends Component {
       duration: props.duration,
     }
   }
+  static getDerivedStateFromProps(props, state) {
+    dismissHandler && clearTimeout(dismissHandler);
+    if (
+      props.toastType !== state.toastType ||
+      props.message !== state.message
+    ) {
+      return {
+        toastType: props.toastType,
+        loadType: props.loadType,
+        size: props.size,
+        color: props.color,
+        message: props.message,
+        duration: props.duration,
+      };
+    }
+    return null;
+  }
 
   componentDidMount() {
     Animated.timing(
@@ -58,28 +75,16 @@ export default class ToastView extends Component {
     ).start(this.timingDismiss);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps);
-    this.setState({
-      toastType: nextProps.toastType,
-      loadType: nextProps.loadType,
-      size: nextProps.size,
-      color: nextProps.color,
-      message: nextProps.message,
-      duration: nextProps.duration,
-    },function () {
-      this.timingDismiss();
-    });
-    clearTimeout(this.dismissHandler);
-
+  componentDidUpdate(prevProps, prevState) {
+    this.timingDismiss();
   }
 
   componentWillUnmount() {
-    clearTimeout(this.dismissHandler)
+    dismissHandler && clearTimeout(dismissHandler)
   }
 
   timingDismiss = () => {
-    (this.state.toastType == 'info') && (this.dismissHandler = setTimeout(() => {
+    (this.state.toastType == 'info') && (dismissHandler = setTimeout(() => {
       ToastView.dismiss();
     }, this.state.duration));
   };
@@ -117,7 +122,7 @@ export default class ToastView extends Component {
 
 const styles = StyleSheet.create({
   textContainer: {
-    backgroundColor: 'rgba(0,0,0,.6)',
+    backgroundColor: 'rgba(255,255,255,.6)',
     borderRadius: 8,
     paddingTop: 10,
     paddingBottom: 10,
@@ -125,10 +130,14 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     margin:10,
     maxWidth: 300,
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.16)',
+    shadowOffset: {width: 0, height: 1},
+    shadowRadius: 1,
+    elevation: 1,
   },
   defaultText: {
-    color: "#FFF",
+    color: "#000",
     fontSize: 15,
   },
   container: {

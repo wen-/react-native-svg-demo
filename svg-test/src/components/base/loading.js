@@ -14,6 +14,8 @@ export default class Loading extends Component {
     radius: PropTypes.number,
     size: PropTypes.number,
     color: PropTypes.string,
+    OutBG: PropTypes.string,
+    InBG: PropTypes.string
   };
 
   static defaultProps = {

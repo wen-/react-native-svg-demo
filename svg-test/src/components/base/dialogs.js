@@ -13,10 +13,10 @@ Dialogs.alert({
   confirmTxt: 'OK',
   confirmPress: ()=>{
     console.log('点了OK');
-  };
+  }
 });
 
-dialogs.confirm({
+Dialogs.confirm({
   msg: '22222222',
   cancelTxt: 'no',
   confirmTxt: 'yes',
@@ -25,7 +25,7 @@ dialogs.confirm({
   },
   confirmPress: ()=>{
     console.log('点了yes');
-  };
+  }
 });
 
 */

@@ -1,6 +1,23 @@
 'use strict';
 
 const config = [
+  // rn-fetch-blob组件相互引用警告
+  {
+    source: 'scripts/overwrite/rn-fetch-blob/Blob.js',
+    dist: 'node_modules/rn-fetch-blob/polyfill/Blob.js'
+  },
+  {
+    source: 'scripts/overwrite/rn-fetch-blob/Fetch.js',
+    dist: 'node_modules/rn-fetch-blob/polyfill/Fetch.js'
+  },
+  {
+    source: 'scripts/overwrite/rn-fetch-blob/FileReader.js',
+    dist: 'node_modules/rn-fetch-blob/polyfill/FileReader.js'
+  },
+  {
+    source: 'scripts/overwrite/rn-fetch-blob/XMLHttpRequest.js',
+    dist: 'node_modules/rn-fetch-blob/polyfill/XMLHttpRequest.js'
+  },
   {
     source: 'scripts/overwrite/react-native-reanimated/TransitionModule.java',
     dist: 'node_modules/react-native-reanimated/android/src/main/java/com/swmansion/reanimated/transitions/TransitionModule.java'

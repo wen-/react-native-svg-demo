@@ -43,6 +43,21 @@ export default class DislogsView extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (
+      props.type !== state.type ||
+      props.message !== state.message
+    ) {
+      return {
+        type: props.type,
+        cancelTxt: props.cancelTxt,
+        confirmTxt: props.confirmTxt,
+        message: props.message,
+      };
+    }
+    return null;
+  }
+
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       return true;
@@ -57,15 +72,15 @@ export default class DislogsView extends Component {
     ).start();
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps);
-    this.setState({
-      type: nextProps.type,
-      cancelTxt: nextProps.cancelTxt,
-      confirmTxt: nextProps.confirmTxt,
-      message: nextProps.message,
-    });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("nextProps", nextProps);
+  //   this.setState({
+  //     type: nextProps.type,
+  //     cancelTxt: nextProps.cancelTxt,
+  //     confirmTxt: nextProps.confirmTxt,
+  //     message: nextProps.message,
+  //   });
+  // }
 
   componentWillUnmount() {
     this.backHandler.remove();

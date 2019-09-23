@@ -124,10 +124,10 @@ async function requestHandleVal(url, params = null, isShowLoading=true, isShowEr
 function formatNetworkError(error) {
   const errMsg = error.toString();
   if (errMsg.includes('offline') || errMsg.includes('断开') || errMsg.includes('Failed to connect')) {
-    dialog.toast.info('网络已断开，请检测网络后重试');
+    Toast.info('网络已断开，请检测网络后重试');
     return { code: 'offline', message: '网络已断开，请检测网络后重试', data: '网络已断开，请检测网络后重试' };
   } else if (errMsg.includes('timed out') || errMsg.includes('超时')) {
-    dialog.toast.info('请求超时，请稍后再试');
+    Toast.info('请求超时，请稍后再试');
     return { code: 'timeout', message: '网络异常，请稍后重试', data: '网络异常，请稍后重试' };
   }
   return { code: 'unknown', message: '网络异常，请稍后重试', data: errMsg };
