@@ -3,7 +3,6 @@ import {
     Animated,
     View,
     Text,
-    //requestAnimationFrame
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -12,12 +11,14 @@ export default class AnimateNum extends React.Component{
         startNum: PropTypes.number,
         endNum: PropTypes.number,
         speed: PropTypes.number,
+        format: PropTypes.func,
     };
     
     static defaultProps = {
-        startNum: 8888,
-        endNum: 10000,
+        startNum: 0,
+        endNum: 100,
         speed: 20,
+        format: (n)=>{return n}
     };
 
     constructor(props){
@@ -37,7 +38,9 @@ export default class AnimateNum extends React.Component{
         const { num, sTime } = this.state;
         const addBool = startNum<endNum?true:false;
         const currentTime = Date.now();
-        const step = Math.abs(endNum-startNum)>100?11:1;
+        const nLength = Math.abs(endNum-startNum).toString().length;
+        //step: 1-99=>1、100-999=>11、1000-9999=>111 ...
+        const step = nLength>2?parseInt("1".repeat(nLength-1)):1;
         if((addBool && num >= endNum) || (!addBool && num <= endNum)){
             this.setState({
                 num: endNum,
@@ -55,11 +58,11 @@ export default class AnimateNum extends React.Component{
     }
 
     render(){
-        const { startNum, endNum, speed } = this.props;
+        const { format } = this.props;
         const { num } = this.state;
         
         return(
-            <Text>{ num }</Text>
+            <Text>{ format(num) }</Text>
         )
     }
 }

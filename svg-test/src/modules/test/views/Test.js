@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'tools/dva';
+import { numberFormat } from 'tools/format';
 import Actions from '../actions/test';
 
 import {Test as TestComponent, AnimateCircle as AnimateCircleComponent, AnimateNum} from 'public-component';
@@ -36,7 +37,9 @@ class Test extends React.Component{
                 <Text style={styles.textColorRed}>TEST2: {this.props.testData.name}</Text>
                 <Loading />
                 <TestComponent />
-                <AnimateNum />
+                <AnimateNum startNum={89123456} endNum={9876543} format={(n)=>{
+                    return numberFormat(n);
+                }} />
 
                 <AnimateCircleComponent progress={80} />
 
