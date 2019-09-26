@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-    Animated,
-    View,
     Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -49,10 +47,21 @@ export default class AnimateNum extends React.Component{
             return;
         }
         if((currentTime-sTime) >= speed){
+            let n;
+            if(addBool){
+                const tempNum = num+step;
+                n = tempNum>endNum?endNum:tempNum;
+            }else{
+                const tempNum = num-step;
+                n = tempNum<endNum?endNum:tempNum;
+            }
             this.setState({
-                num: addBool?num+step:num-step,
+                num: n,
                 sTime: currentTime
             });
+            if(n == endNum){
+                return;
+            }
         }
         requestAnimationFrame(this.countNum);
     }
@@ -60,7 +69,7 @@ export default class AnimateNum extends React.Component{
     render(){
         const { format } = this.props;
         const { num } = this.state;
-        
+
         return(
             <Text>{ format(num) }</Text>
         )
