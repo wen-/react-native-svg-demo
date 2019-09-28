@@ -10,7 +10,7 @@ import { connect } from 'tools/dva';
 import { numberFormat } from 'tools/format';
 import Actions from '../actions/test';
 
-import {Test as TestComponent, AnimateCircle as AnimateCircleComponent, AnimateNum} from 'public-component';
+import {Test as TestComponent, AnimateCircle as AnimateCircleComponent, AnimateNum, AnimateMultipleCircle} from 'public-component';
 import Loading from 'components/base/loading';
 
 import Toast from 'components/base/toast';
@@ -42,6 +42,21 @@ class Test extends React.Component{
                 }} />
 
                 <AnimateCircleComponent progress={80} />
+
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <AnimateMultipleCircle />
+                    <View style={{
+                        position: 'absolute',
+                        borderBottomWidth: 1,
+                        borderBottomColor: 'red',
+                        bottom: 30,
+                        width: '100%'
+                    }} />
+                </View>
+                
 
                 <TouchableOpacity
                     onPress={()=>{
