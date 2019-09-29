@@ -10,7 +10,12 @@ import { connect } from 'tools/dva';
 import { numberFormat } from 'tools/format';
 import Actions from '../actions/test';
 
-import {Test as TestComponent, AnimateCircle as AnimateCircleComponent, AnimateNum, AnimateMultipleCircle} from 'public-component';
+import {
+    Test as TestComponent, 
+    AnimateCircle as AnimateCircleComponent, 
+    AnimateNum, 
+    AnimateMultipleCircle
+} from 'public-component';
 import Loading from 'components/base/loading';
 
 import Toast from 'components/base/toast';
