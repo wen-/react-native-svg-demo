@@ -52,6 +52,23 @@ export default class AnimateCircle extends React.Component{
         ).start();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.progress !== prevProps.progress){
+            this.setState({
+                strokeDashOffset: new Animated.Value(0)
+            },()=>{
+                Animated.timing(
+                    this.state.strokeDashOffset,
+                    {
+                        toValue: 1,
+                        duration: this.props.duration,
+                        delay: this.props.delay
+                    }
+                ).start();
+            })
+        }
+    }
+
     render(){
         const { radius, size, fColor, bColor, progress, rotate, textShow } = this.props;
         const diameter = radius*2;

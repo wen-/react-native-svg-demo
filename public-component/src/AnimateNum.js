@@ -22,13 +22,41 @@ export default class AnimateNum extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            num: this.props.startNum,
+            sNum: props.startNum,
+            eNum: props.endNum,
+            num: props.startNum,
             sTime: Date.now(),
         }
     }
 
+    static getDerivedStateFromProps(props, state) {
+        this.count && cancelAnimationFrame(this.count);
+        if (
+            props.startNum !== state.sNum ||
+            props.endNum !== state.eNum
+        ) {
+            return {
+                sNum: props.startNum,
+                eNum: props.endNum,
+                num: props.startNum,
+                sTime: Date.now()
+            };
+        }
+        return null;
+    }
+
     componentDidMount(){
-        requestAnimationFrame(this.countNum);
+        this.count = requestAnimationFrame(this.countNum);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.startNum !== prevProps.startNum || this.props.endNum !== prevProps.endNum){
+            this.count = requestAnimationFrame(this.countNum);
+        }
+    }
+
+    componentWillUnmount(){
+        this.count && cancelAnimationFrame(this.count);
     }
 
     countNum = ()=>{
@@ -63,13 +91,13 @@ export default class AnimateNum extends React.Component{
                 return;
             }
         }
-        requestAnimationFrame(this.countNum);
+        this.count = requestAnimationFrame(this.countNum);
     }
 
     render(){
         const { format } = this.props;
         const { num } = this.state;
-
+        
         return(
             <Text>{ format(num) }</Text>
         )

@@ -76,7 +76,13 @@ export default class ToastView extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.timingDismiss();
+    if (
+      props.toastType !== prevProps.toastType ||
+      props.message !== prevProps.message
+    ) {
+      this.timingDismiss();
+    }
+    
   }
 
   componentWillUnmount() {
